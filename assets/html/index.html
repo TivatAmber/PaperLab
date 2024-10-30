@@ -53,8 +53,9 @@
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
 
+        const userInfo = { username: username, role: role }
         if (username === 'admin' && password === '123456') {
-            ipcRenderer.send('login-success', role);
+            ipcRenderer.send('login-success', userInfo);
         } else {
             errorMessage.textContent = 'Invalid username or password!';
         }

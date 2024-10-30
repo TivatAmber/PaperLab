@@ -44,7 +44,10 @@ ipcMain.on('open-teacher', () => {
     mainWindow.loadFile(path.join(__dirname, 'assets/html/teacher.html'));
 });
 
-ipcMain.on('login-success', (event, role) => {
+ipcMain.on('login-success', (event, userInfo) => {
+    const username = userInfo.username
+    const role = userInfo.role
+
     if (role === 'student') {
         mainWindow.loadFile(path.join(__dirname, 'assets/html/student.html'));
     } else if (role === 'teacher') {
