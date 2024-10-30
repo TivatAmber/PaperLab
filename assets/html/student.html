@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生主页</title>
+    <link rel="stylesheet" href="../css/studentStyle.css">
+</head>
+<body>
+<div class="container">
+    <div class="profile">
+        <img src="profile.png" alt="头像">
+        <div>
+            <div>学号: 123456</div>
+            <div>昵称: 学生A</div>
+        </div>
+        <div class="gear-icon" id="settingsLink">⚙️</div>
+    </div>
+
+    <div class="ad">广告位招租</div>
+
+    <div class="trending">时下热门</div>
+
+    <div class="feature-list">
+        <div class="feature" id="assignmentsLink">大作业</div>
+        <div class="feature" id="competitionLink">竞赛</div>
+    </div>
+
+    <div class="team">我的队伍</div>
+
+    <div class="announcement">公告</div>
+</div>
+
+<script>
+    // 获取页面元素
+    const { ipcRenderer } = require('electron');
+
+    const assignmentsLink = document.getElementById('assignmentsLink');
+    const competitionLink = document.getElementById('competitionLink');
+    const settingsLink = document.getElementById('settingsLink');
+
+    // 为元素添加点击事件监听器
+    assignmentsLink.addEventListener('click', () => {
+        ipcRenderer.send('open-assignments');
+    });
+
+    competitionLink.addEventListener('click', () => {
+        ipcRenderer.send('open-competition');
+    });
+
+    settingsLink.addEventListener('click', () => {
+        ipcRenderer.send('open-settings');
+    });
+</script>
+</body>
+</html>

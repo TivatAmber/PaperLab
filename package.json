@@ -1,0 +1,17 @@
+{
+  "name": "paperlab",
+  "version": "1.0.0",
+  "description": "A Software to manage paper…… and so on……",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "TivatAmber",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^32.1.2"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.0"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" placeholder="Enter a username" required>
+            </div>
+            <div class="input-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" placeholder="Enter a password" required>
+            </div>
+            <button type="submit" class="login-button">Register</button>
+        </form>
+        <p class="login-link">
+            Already have an account? <a href="#" id="loginLink">Login here</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    const registerForm = document.getElementById('registerForm');
+    const loginLink = document.getElementById('loginLink');
+
+    loginLink.addEventListener('click', () => {
+        window.electronAPI.send('open-login');
+    });
+
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        alert('Registration successful!');
+        window.electronAPI.send('open-login');
+    });
+</script>
+</body>
+</html>
