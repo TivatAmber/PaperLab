@@ -1,0 +1,139 @@
+/* 左侧栏样式 */
+.competition-left-down-sidebar {
+    grid-column: 1;
+    grid-row: 2 / -1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.competition-left-down-sidebar h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.team-preview {
+    margin-top: 20px;
+    color: #333;
+    font-size: 1em;
+}
+
+/* 中间内容区样式 */
+.main-content {
+    grid-column: 2 / 3;
+    grid-row: 1 / -1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.main-content h2 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.scroll-gallery {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-item {
+    width: 45%;
+    height: 150px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    display: flex;
+}
+
+.scroll-item-search {
+    width: 60%;
+    height: 100px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    display: flex;
+}
+
+.description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.scroll-panel {
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid #ddd;*/
+    padding: 10px;
+    margin-top: 10px;
+    overflow-y: auto;
+    /*background-color: #f9f9f9;*/
+}
+
+/* 右侧栏样式 */
+.right-sidebar {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*.right-down-sidebar {*/
+/*    grid-column: 3;*/
+/*    grid-row: 3;*/
+/*    padding: 20px;*/
+/*    background-color: #ffffff;*/
+/*    border-left: 1px solid #ddd;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+
+
+.search-section {
+    width: 100%;
+    text-align: center;
+}
+
+.search-section input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-result {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hot-section {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #333;
+    width: 100%;
+    text-align: center;
+}
+
+.hot-item {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    display: flex;
+}

@@ -1,63 +1,5 @@
-/* 样式重置 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 全局样式 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: auto 1fr 1fr;
-    gap: 10px;
-    height: 100vh;
-    padding: 10px;
-}
-
-/* 个人信息部分 */
-.profile {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    position: relative;
-}
-
-.profile img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.gear-icon {
-    margin-left: auto;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-/* 广告位 */
-.ad {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-}
-
 /* 时下热门 */
-.trending {
+.ad {
     grid-column: 3 / 4;
     grid-row: 1 / 4;
     background-color: #fff;
@@ -70,14 +12,17 @@ body {
 /* 功能列表 */
 .feature-list {
     grid-column: 1 / 2;
-    grid-row: 2 / 4;
+    grid-row: 2 / -1;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
 .feature {
-    background-color: #fff;
+    background-color: #dddddd;
+    width: 80%;
     height: 80px;
     border-radius: 8px;
     display: flex;
@@ -86,19 +31,13 @@ body {
     cursor: pointer;
     font-size: 18px;
     position: relative;
-}
-
-.feature::after {
-    content: '⚡';
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin: 30px 0 0 0;
 }
 
 /* 我的队伍 */
 .team {
     grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    grid-row: 2 / -1;
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -109,7 +48,7 @@ body {
 /* 公告 */
 .announcement {
     grid-column: 2 / 3;
-    grid-row: 3 / 4;
+    grid-row: 1;
     background-color: #fff;
     display: flex;
     justify-content: center;

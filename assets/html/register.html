@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loginStyle.css">
 </head>
 <body>
 <div class="login-container">
@@ -28,18 +28,19 @@
 </div>
 
 <script>
+    const { ipcRenderer } = require('electron');
     const registerForm = document.getElementById('registerForm');
     const loginLink = document.getElementById('loginLink');
 
     loginLink.addEventListener('click', () => {
-        window.electronAPI.send('open-login');
+        ipcRenderer.send('open-login');
     });
 
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         alert('Registration successful!');
-        window.electronAPI.send('open-login');
+        ipcRenderer.send('open-login');
     });
 </script>
 </body>

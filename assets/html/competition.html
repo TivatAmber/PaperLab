@@ -1,20 +1,88 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>竞赛页面</title>
+    <link rel="stylesheet" href="../css/hallStyle.css">
+    <link rel="stylesheet" href="../css/commonStyle.css">
 </head>
 <body>
-<h1>这是竞赛页面</h1>
-<button id="homeLink">返回主页</button>
+<div class="container">
+    <!-- 左侧栏 -->
+    <div class="profile">
+        <button class="home-button" id="homeLink">返回</button>
+        <h2>个人信息</h2>
+        <div class="profile-container">
+            <button class="edit-button" id="settingsLink">⚙️</button>
+            <img src="../image/profile.png" alt="头像" class="profile-picture"></img>
+        </div>
+        <div class="info-container">
+            <div class="info-display">
+                <p><strong>学号：</strong><span id="student-id">123456</span></p>
+                <p><strong>昵称：</strong><span id="nickname">小明</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="competition-left-down-sidebar">
+        <div class="team-preview">
+            <h3>队伍预览</h3>
+        </div>
+    </div>
+
+    <!-- 中间内容区 - 竞赛大厅 -->
+    <div class="main-content">
+        <h2>竞赛大厅</h2>
+        <div class="scroll-panel">
+<!--            <p>这是竞赛大厅的滑动面板内容。可以在这里添加更多内容，用户可以通过滚动查看。</p>-->
+            <div class="scroll-gallery" id="competition-result">
+                <div class="scroll-item"></div>
+                <div class="scroll-item"></div>
+                <div class="scroll-item"></div>
+                <div class="scroll-item"></div>
+                <div class="scroll-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右侧栏 - 搜索和动态展示 -->
+    <div class="right-sidebar">
+        <div class="search-section">
+            <h3>搜索</h3>
+            <input type="text" placeholder="请输入">
+        </div>
+
+        <div class="scroll-panel">
+            <div class="scroll-gallery" id="search-result">
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+                <div class="scroll-item-search"></div>
+            </div>
+        </div>
+    </div>
+
+<!--    <div class="right-down-sidebar">-->
+<!--        <div class="hot-section">-->
+<!--            <h3>时下热门</h3>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
 
 <script>
     const { ipcRenderer } = require('electron');
 
     const homeLink = document.getElementById('homeLink');
+    const settingLink = document.getElementById('settingsLink');
     homeLink.addEventListener('click', () => {
         ipcRenderer.send('open-student');
+    });
+    settingLink.addEventListener('click', () => {
+        ipcRenderer.send('open-settings');
     });
 </script>
 </body>

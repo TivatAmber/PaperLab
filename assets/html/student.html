@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生主页</title>
     <link rel="stylesheet" href="../css/studentStyle.css">
+    <link rel="stylesheet" href="../css/commonStyle.css">
 </head>
 <body>
 <div class="container">
     <div class="profile">
-        <img src="../image/profile.png" alt="头像">
-        <div>
-            <div>学号: 123456</div>
-            <div>昵称: 学生A</div>
+        <h2>个人信息</h2>
+        <div class="profile-container">
+            <button class="edit-button" id="settingsLink">⚙️</button>
+            <img src="../image/profile.png" alt="头像" class="profile-picture"></img>
         </div>
-        <div class="gear-icon" id="settingsLink">⚙️</div>
+        <div class="info-container">
+            <div class="info-display">
+                <p><strong>学号：</strong><span id="student-id">123456</span></p>
+                <p><strong>昵称：</strong><span id="nickname">小明</span></p>
+            </div>
+        </div>
     </div>
 
     <div class="ad">广告位招租</div>
-
-    <div class="trending">时下热门</div>
 
     <div class="feature-list">
         <div class="feature" id="assignmentsLink">大作业</div>
