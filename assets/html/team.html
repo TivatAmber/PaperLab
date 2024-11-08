@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生主页</title>
+    <link rel="stylesheet" href="../css/teamStyle.css">
+    <link rel="stylesheet" href="../css/commonStyle.css">
+</head>
+<body>
+<div class="container">
+    <button class="home-button" id="homeLink">返回</button>
+    <div class="profile">
+        <h2>个人信息</h2>
+        <div class="profile-container">
+            <button class="edit-button" id="settingsLink">⚙️</button>
+            <img src="../image/profile.png" alt="头像" class="profile-picture"></img>
+        </div>
+        <div class="info-container">
+            <div class="info-display">
+                <p><strong>学号：</strong><span id="student-id">123456</span></p>
+                <p><strong>昵称：</strong><span id="nickname">小明</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-list">
+        <div class="feature" id="joinGroup">加入小组</div>
+        <div class="feature" id="leaveGroup">退出小组</div>
+        <div class="feature" id="managerGroup">管理小组</div>
+    </div>
+
+    <div class="teammate">
+        <h3>成员名单</h3>
+        <div class="scroll-panel">
+            <div class="scroll-gallery">
+                <div class="scroll-item-teammate">
+                    <h3 class="teammate-item-title">队员1 </h3>
+                    <p class="teammate-item-description">
+                        这是队员1的描述
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-brief">
+        <h3>队伍简介</h3>
+        <p>这是队伍简介</p>
+    </div>
+
+    <div class="team-application">
+        <h3> 队伍申请 </h3>
+        <div class="scroll-gallery">
+            <div class="scroll-item-application">
+                <h4 class="teammate-item-title">队员1 </h4>
+                <p class="teammate-item-description">
+                    这是队员1的描述
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 获取页面元素
+    const { ipcRenderer } = require('electron');
+    const settingsLink = document.getElementById('settingsLink');
+    const homeLink = document.getElementById('homeLink');
+
+    settingsLink.addEventListener('click', () => {
+        ipcRenderer.send('open-settings');
+    });
+    homeLink.addEventListener('click', () => {
+        window.history.back();
+    });
+</script>
+</body>
+</html>

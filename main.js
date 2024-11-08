@@ -7,12 +7,13 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        maximizable: true,
+        resizable: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     });
-
     mainWindow.loadFile(path.join(__dirname, 'assets/html/index.html'));
 }
 
@@ -47,13 +48,19 @@ ipcMain.on('open-teacher', () => {
 ipcMain.on('login-success', (event, userInfo) => {
     const username = userInfo.username
     const role = userInfo.role
-
     if (role === 'student') {
         mainWindow.loadFile(path.join(__dirname, 'assets/html/student.html'));
     } else if (role === 'teacher') {
         mainWindow.loadFile(path.join(__dirname, 'assets/html/teacher.html'));
     }
+    mainWindow.setResizable(true);
+    mainWindow.maximize();
+    mainWindow.setResizable(false);
 });
+
+ipcMain.on('open-team', () => {
+    mainWindow.loadFile(path.join(__dirname, 'assets/html/team.html'));
+})
 
 app.whenReady().then(createWindow);
 
