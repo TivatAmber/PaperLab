@@ -17,6 +17,28 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'assets/html/index.html'));
 }
 
+function createFloatingWindows(fileName) {
+    // Create a window that's frameless and always on top
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        },
+        parent: mainWindow,
+        modal: false
+    })
+
+    // Load your HTML file
+    win.loadFile(path.join(__dirname, 'assets/html/' + fileName))
+
+    // Make window draggable (from our custom title bar)
+    win.setMovable(true)
+
+    return win
+}
+
 ipcMain.on('open-register', () => {
     mainWindow.loadFile(path.join(__dirname, 'assets/html/register.html'));
 });
@@ -60,6 +82,24 @@ ipcMain.on('login-success', (event, userInfo) => {
 
 ipcMain.on('open-team', () => {
     mainWindow.loadFile(path.join(__dirname, 'assets/html/team.html'));
+})
+
+ipcMain.on('open-team-create', () => {
+    createFloatingWindows('createTeam.html')
+})
+
+ipcMain.on('create-team', (event, {teamName, teamDescription}) => {
+    console.log(teamName + "\n", teamDescription)
+    event.reply('team-created', {state: 'success'})
+})
+
+ipcMain.on('close-window', (event) => {
+    // Get the window that sent the message
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win && win.closable) {
+        win.close()
+    }
+    console.log("close window");
 })
 
 app.whenReady().then(createWindow);

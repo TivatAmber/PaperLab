@@ -21,6 +21,7 @@
     margin-top: 20px;
     color: #333;
     font-size: 1em;
+    width: 80%;
 }
 
 /* 中间内容区样式 */
@@ -54,6 +55,7 @@
     height: 150px;
     background-color: #ddd;
     border: 1px solid #ccc;
+    position: relative;
 }
 
 .scroll-item-search {
@@ -144,9 +146,30 @@
     font-size: 1em;
     text-align: left;
     text-indent: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.competition-item-link {
-    font-size: 1em;
-    text-align: right;
+.team-brief {
+    white-space: normal;
+    word-break: break-word;
+    text-indent: 2em;
+    text-align: left;
+    width: 100%;
+}
+
+.team-brief-title {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.bottom-right-transform {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(-10px, -10px); /* Offset from edges */
+}
+
+.bottom-right-transform:hover {
+    transform: translate(-10px, -10px) scale(1.1); /* Scale on hover */
 }

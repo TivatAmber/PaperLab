@@ -15,7 +15,7 @@
         <h2>个人信息</h2>
         <div class="profile-container">
             <button class="edit-button" id="settingsLink">⚙️</button>
-            <img src="../image/profile.png" alt="头像" class="profile-picture"></img>
+            <img src="../image/profile.png" alt="头像" class="profile-picture">
         </div>
         <div class="info-container">
             <div class="info-display">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="feature-list">
-        <div class="feature">创建组队</div>
+        <div class="feature" id="createTeam">创建组队</div>
     </div>
 
     <!-- 中间内容区 - 大作业大厅 -->
@@ -38,14 +38,24 @@
                 <div class="scroll-item">
                     <h3 class="competition-item-title">大作业1</h3>
                     <p class="competition-item-description">
-                        这是大作业1的描述 <br />
+                        这是大作业1的描述 <br/> dsjakflhdjksafhkjdsahfjkadshjkfhdjsakhfkhdskjhfjkadhsjkfhjkdshjklfhsdajkhfjkdsahjkfhadsk
+                        dfahadshfjkdsafjkdsahjfhjkadshfjkdshafkhsdjkfhjkasd<br />
                     </p>
-                    <p class="competition-item-link" id="teamLink">查看详情</p>
+                    <div class="bottom-right-transform" id="teamLink">查看详情</div>
                 </div>
-                <div class="scroll-item"></div>
-                <div class="scroll-item"></div>
-                <div class="scroll-item"></div>
-                <div class="scroll-item"></div>
+                <div class="scroll-item">
+                    <h3 class="competition-item-title">大作业1</h3>
+                    <p class="competition-item-description">
+                    </p>
+                    <div class="bottom-right-transform" id="teamLink2">查看详情</div>
+                </div>
+                <div class="scroll-item">
+                    <h3 class="competition-item-title">大作业1</h3>
+                    <p class="competition-item-description">
+                        这是3的描述<br />
+                    </p>
+                    <div class="bottom-right-transform" id="teamLink3">查看详情</div>
+                </div>
             </div>
         </div>
     </div>
@@ -71,8 +81,9 @@
     </div>
 
     <div class="right-down-sidebar">
+        <h3 class="team-brief-title">队伍预览</h3>
         <div class="team-preview">
-            <h3>队伍预览</h3>
+            <p class="team-brief" id="team-brief"> </p>
         </div>
     </div>
 </div>
@@ -83,6 +94,7 @@
     const homeLink = document.getElementById('homeLink');
     const settingLink = document.getElementById('settingsLink');
     const teamLink = document.getElementById('teamLink');
+    const createTeam = document.getElementById('createTeam');
     homeLink.addEventListener('click', () => {
         window.history.back();
     });
@@ -92,6 +104,25 @@
     teamLink.addEventListener('click', () => {
         ipcRenderer.send('open-team');
     });
+    createTeam.addEventListener('click', () => {
+        ipcRenderer.send('open-team-create');
+    })
+
+    document.addEventListener('DOMContentLoaded', function() {
+        traverseItems();
+    });
+
+    function traverseItems() {
+        const items = document.getElementsByClassName('scroll-item');
+        const teamBrief = document.getElementById('team-brief');
+
+        Array.from(items).forEach(item => {
+            item.addEventListener('click', () => {
+                teamBrief.textContent = item.getElementsByClassName('competition-item-description')[0].textContent;
+                console.log("test");
+            });
+        });
+    }
 </script>
 </body>
 </html>

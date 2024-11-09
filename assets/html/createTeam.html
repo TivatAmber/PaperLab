@@ -1,0 +1,43 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Team</title>
+    <link rel="stylesheet" href="../css/createTeamStyle.css">
+</head>
+<body>
+<div id="content">
+    <h3>队伍名称</h3>
+    <input type="text" placeholder="请输入" id="teamName">
+    <h3>队伍简介</h3>
+    <textarea class="description-input" placeholder="请输入" id="teamDescription"></textarea>
+    <div class="button-container">
+        <button id="createTeam">创建队伍</button>
+        <button id="cancel">取消</button>
+    </div>
+</div>
+<script>
+    const { ipcRenderer } = require('electron');
+    const createTeam = document.getElementById('createTeam');
+    const cancel = document.getElementById('cancel');
+    createTeam.addEventListener('click', () => {
+        ipcRenderer.send('create-team', {
+            teamName: document.getElementById('teamName').value,
+            teamDescription: document.getElementById('teamDescription').value
+        });
+    })
+    cancel.addEventListener('click', () => {
+        ipcRenderer.send('close-window');
+    });
+
+    ipcRenderer.on('team-created', (event, {state}) => {
+        if (state === 'success') {
+            alert('队伍创建成功！');
+            ipcRenderer.send('close-window');
+        } else {
+            alert('队伍创建失败！');
+        }
+    });
+</script>
+</body>
+</html>
