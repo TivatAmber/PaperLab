@@ -36,25 +36,25 @@
             <!--            <p>这是竞赛大厅的滑动面板内容。可以在这里添加更多内容，用户可以通过滚动查看。</p>-->
             <div class="scroll-gallery-competition" id="competition-result">
                 <div class="scroll-item">
-                    <h3 class="competition-item-title">大作业1</h3>
+                    <h3 class="competition-item-title"> one </h3>
                     <p class="competition-item-description">
-                        这是大作业1的描述 <br/> dsjakflhdjksafhkjdsahfjkadshjkfhdjsakhfkhdskjhfjkadhsjkfhjkdshjklfhsdajkhfjkdsahjkfhadsk
-                        dfahadshfjkdsafjkdsahjfhjkadshfjkdshafkhsdjkfhjkasd<br />
+                        这是1的描述sdasdsaaddsdsdsdsdsdsdsdsdsdsddsadsadsdsadsadasdasdasdas <br/>
+                        fsdfdsfadsfdfadsfasdfasdfdfadsfdfadsfasdfasdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasd
                     </p>
-                    <div class="bottom-right-transform" id="teamLink">查看详情</div>
+                    <div class="bottom-right-transform" id="teamLink" data-team-id="1"> details </div>
                 </div>
                 <div class="scroll-item">
                     <h3 class="competition-item-title">大作业1</h3>
                     <p class="competition-item-description">
                     </p>
-                    <div class="bottom-right-transform" id="teamLink2">查看详情</div>
+                    <div class="bottom-right-transform" id="teamLink2" data-team-id="2">查看详情</div>
                 </div>
                 <div class="scroll-item">
                     <h3 class="competition-item-title">大作业1</h3>
                     <p class="competition-item-description">
                         这是3的描述<br />
                     </p>
-                    <div class="bottom-right-transform" id="teamLink3">查看详情</div>
+                    <div class="bottom-right-transform" id="teamLink3" data-team-id="3">查看详情</div>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
     <div class="right-sidebar">
         <div class="search-section">
             <h3>搜索</h3>
-            <input type="text" placeholder="请输入">
+            <input type="text" class="search-box"  placeholder="请输入">
         </div>
 
         <div class="scroll-panel">
@@ -95,14 +95,12 @@
     const settingLink = document.getElementById('settingsLink');
     const teamLink = document.getElementById('teamLink');
     const createTeam = document.getElementById('createTeam');
+
     homeLink.addEventListener('click', () => {
         window.history.back();
     });
     settingLink.addEventListener('click', () => {
         ipcRenderer.send('open-settings');
-    });
-    teamLink.addEventListener('click', () => {
-        ipcRenderer.send('open-team');
     });
     createTeam.addEventListener('click', () => {
         ipcRenderer.send('open-team-create');
@@ -119,7 +117,19 @@
         Array.from(items).forEach(item => {
             item.addEventListener('click', () => {
                 teamBrief.textContent = item.getElementsByClassName('competition-item-description')[0].textContent;
-                console.log("test");
+            });
+            const button = item.getElementsByClassName('bottom-right-transform')[0];
+            console.log(button.id);
+
+            button.addEventListener('click', () => {
+                const teamId = button.dataset.teamId;
+                if (!teamId) {
+                    console.error("No team id found");
+                    return;
+                }
+                ipcRenderer.send('open-team', {
+                    teamId: teamId
+                });
             });
         });
     }

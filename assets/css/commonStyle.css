@@ -115,6 +115,7 @@ body {
     margin-top: 10px;
     overflow-y: auto;
     /*background-color: #f9f9f9;*/
+    justify-items: center;
 }
 
 .scroll-gallery {

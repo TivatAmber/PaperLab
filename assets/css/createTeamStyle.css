@@ -5,21 +5,11 @@ body {
     overflow: hidden;
 }
 
-#title-bar {
-    height: 32px;
-    background: #333;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8px;
-}
-
 .control-button:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#content {
+.content {
     padding: 16px;
     background: white;
     height: calc(100vh - 32px); /* Subtract titlebar height */

@@ -47,11 +47,11 @@
     margin: 20px 0;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
 }
 
 .scroll-item {
-    width: 45%;
+    width: 90%;
     height: 150px;
     background-color: #ddd;
     border: 1px solid #ccc;
@@ -98,6 +98,7 @@
 .search-section {
     width: 100%;
     text-align: center;
+    z-index: 9999;
 }
 
 .search-section input {
@@ -143,11 +144,11 @@
 }
 
 .competition-item-description {
-    font-size: 1em;
-    text-align: left;
-    text-indent: 2em;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 32em;
+    padding: 0 2em;
 }
 
 .team-brief {

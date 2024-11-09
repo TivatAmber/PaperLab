@@ -14,6 +14,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
+    mainWindow.center();
     mainWindow.loadFile(path.join(__dirname, 'assets/html/index.html'));
 }
 
@@ -44,6 +45,9 @@ ipcMain.on('open-register', () => {
 });
 
 ipcMain.on('open-login', () => {
+    // TODO reset login info
+    mainWindow.setSize(800, 600);
+    mainWindow.center();
     mainWindow.loadFile(path.join(__dirname, 'assets/html/index.html'));
 });
 
@@ -80,7 +84,13 @@ ipcMain.on('login-success', (event, userInfo) => {
     mainWindow.setResizable(false);
 });
 
-ipcMain.on('open-team', () => {
+ipcMain.on('open-team', (event, data= {}) => {
+    const {teamId = null} = data;
+    if (!teamId) {
+        console.error("No TeamId received");
+        return;
+    }
+    console.log("TeamId: ", teamId);
     mainWindow.loadFile(path.join(__dirname, 'assets/html/team.html'));
 })
 
@@ -88,8 +98,8 @@ ipcMain.on('open-team-create', () => {
     createFloatingWindows('createTeam.html')
 })
 
-ipcMain.on('create-team', (event, {teamName, teamDescription}) => {
-    console.log(teamName + "\n", teamDescription)
+ipcMain.on('create-team', (event, {teamName, teamDescription, teamClass}) => {
+    console.log(teamName + "\n", teamDescription + "\n" + teamClass);
     event.reply('team-created', {state: 'success'})
 })
 
