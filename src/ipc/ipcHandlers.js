@@ -62,13 +62,32 @@ class IPCHandlers {
             );
         });
 
+        ipcMain.on('open-class-create', () => {
+            if (this.windowManager.floatingWindow != null) return;
+            this.windowManager.createFloatingWindow(
+                'createClass.html',
+                this.windowManager.mainWindow
+            );
+        })
+
         ipcMain.on('create-team', (event, teamData) => {
             console.log(
                 teamData.teamName + "\n",
                 teamData.teamDescription + "\n" +
                 teamData.teamClass
             );
+            // TODO
             event.reply('team-created', { state: 'success' });
+        });
+
+        ipcMain.on('create-class', (event, classData) => {
+            console.log(
+                classData.className + "\n",
+                classData.classDescription + "\n" +
+                classData.classTeacher
+            );
+            // TODO
+            event.reply('class-created', { state: 'success' });
         });
 
         ipcMain.on('close-window', (event) => {

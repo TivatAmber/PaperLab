@@ -42,6 +42,7 @@
     height: 100px;
     background-color: #ddd;
     border: 1px solid #ccc;
+    position: relative;
 }
 
 .teammate-item-title {

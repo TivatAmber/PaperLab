@@ -20,26 +20,17 @@
             <div class="info-display">
                 <p><strong>学号：</strong><span id="student-id">123456</span></p>
                 <p><strong>昵称：</strong><span id="nickname">小明</span></p>
-                <p><strong>签名：</strong><span id="description">这是签名</span></p>
             </div>
         </div>
     </div>
 
-    <div class="feature-list">
-        <div class="feature" id="joinGroup">加入小组</div>
-        <div class="feature" id="leaveGroup">退出小组</div>
+    <div class="feature-list" id="featureList">
     </div>
 
     <div class="teammate">
         <h3>成员名单</h3>
         <div class="scroll-panel">
             <div class="scroll-gallery" id="teammates">
-                <div class="scroll-item-teammate">
-                    <h3 class="teammate-item-title">队员1 </h3>
-                    <p class="teammate-item-description">
-                        这是队员1的描述
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -51,22 +42,19 @@
 
     <div class="team-application">
         <h3> 队伍申请 </h3>
-        <div class="scroll-gallery" id="applications">
-            <div class="scroll-item-application">
-                <h4 class="teammate-item-title">队员1 </h4>
-                <p class="teammate-item-description">
-                    这是队员1的描述
-                </p>
-                <div class="bottom-left-transform accept-button">接受 </div>
-                <div class="bottom-right-transform reject-button">拒绝 </div>
+        <div class="scroll-panel">
+            <div class="scroll-gallery" id="applications">
+
             </div>
         </div>
     </div>
 </div>
 
+<script src="../../src/renderer/userManager.js"></script>
+<script src="../../src/renderer/applicationManager.js"></script>
+<script src="../../src/renderer/teammateManager.js"></script>
 <script>
     // 获取页面元素
-    const { ipcRenderer } = require('electron');
     const settingsLink = document.getElementById('settingsLink');
     const homeLink = document.getElementById('homeLink');
 
@@ -76,6 +64,55 @@
     homeLink.addEventListener('click', () => {
         window.history.back();
     });
+
+    window.onload = () => {
+        console.log("team is loaded");
+        ApplicationManager.init('applications');
+        TeammateManager.init('teammates');
+        ApplicationManager.update()
+        TeammateManager.update();
+        initFeatures();
+    }
+
+    async function initFeatures() {
+        const data = await UserManager.getCurrentUser();
+        console.log(data);
+        const role = data['role'];
+        console.log(role);
+        let divList = [];
+        if (role === "student") divList = studentFeature();
+        else if (role === "teacher") divList = teacherFeature();
+        const featureList = document.getElementById('featureList');
+        featureList.appendChild(...divList);
+    }
+
+    function studentFeature() {
+        let divList = [];
+        const joinGroup = document.createElement('div');
+        joinGroup.classList.add('feature');
+        joinGroup.id = 'joinGroup';
+        joinGroup.innerText = '加入小组';
+        // TODO function of join Group
+        divList.push(joinGroup);
+        const leaveGroup = document.createElement('div');
+        leaveGroup.classList.add('feature');
+        leaveGroup.id = 'leaveGroup';
+        leaveGroup.innerText = '退出小组';
+        // TODO function of leave Group
+        divList.push(leaveGroup);
+        return divList;
+    }
+
+    function teacherFeature() {
+        let divList = [];
+        const removeTeam = document.createElement('div');
+        removeTeam.classList.add('feature');
+        removeTeam.id = 'removeTeam';
+        removeTeam.innerText = '解散队伍';
+        // TODO function of remove Team
+        divList.push(removeTeam);
+        return divList;
+    }
 </script>
 </body>
 </html>

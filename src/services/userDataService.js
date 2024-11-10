@@ -57,6 +57,7 @@ class UserDataService {
             if (user["username"] === username && password === data.users["password"] && role === data.users["role"]) {
                 data.currentUser = user;
                 this.currentUser = user;
+                console.log(this.currentUser)
                 fs.writeFileSync(this.userDataPath, JSON.stringify(data, null, 2));
                 return user;
             }

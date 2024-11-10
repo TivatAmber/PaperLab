@@ -53,21 +53,11 @@
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
 
-        const user = UserManager.login(username, password, role);
+        const user = await UserManager.login(username, password, role);
         if (!user) {
             errorMessage.textContent = 'Invalid username or password!';
             return;
         }
-        // const username = document.getElementById('username').value;
-        // const password = document.getElementById('password').value;
-        // const role = document.getElementById('role').value;
-        //
-        // const userInfo = { username: username, role: role }
-        // if (username === 'admin' && password === '123456') {
-        //     ipcRenderer.send('login-success', userInfo);
-        // } else {
-        //     errorMessage.textContent = 'Invalid username or password!';
-        // }
     });
 </script>
 </body>

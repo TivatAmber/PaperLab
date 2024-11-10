@@ -25,8 +25,7 @@
         </div>
     </div>
 
-    <div class="feature-list">
-        <div class="feature" id="createTeam">创建组队</div>
+    <div class="feature-list" id="featureList">
     </div>
 
     <!-- 中间内容区 - 大作业大厅 -->
@@ -48,13 +47,6 @@
 
         <div class="scroll-panel">
             <div class="scroll-gallery" id="search-result">
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
-<!--                <div class="scroll-item-search"></div>-->
             </div>
         </div>
     </div>
@@ -72,23 +64,9 @@
 </script>
 <script src="../../src/renderer/searchManager.js">
 </script>
+<script src="../../src/renderer/userManager.js">
+</script>
 <script>
-    const { ipcRenderer } = require('electron');
-
-    const homeLink = document.getElementById('homeLink');
-    const settingLink = document.getElementById('settingsLink');
-    const createTeam = document.getElementById('createTeam');
-
-    homeLink.addEventListener('click', () => {
-        window.history.back();
-    });
-    settingLink.addEventListener('click', () => {
-        ipcRenderer.send('open-settings');
-    });
-    createTeam.addEventListener('click', () => {
-        ipcRenderer.send('open-team-create');
-    })
-
     window.onload = () => {
         console.log("assignments was loaded");
         AssignmentManager.init("competition-result");
@@ -96,7 +74,47 @@
         AssignmentManager.update();
         SearchManager.update();
         traverseItems();
+        initFeatures();
+
+        const homeLink = document.getElementById('homeLink');
+        const settingLink = document.getElementById('settingsLink');
+
+        homeLink.addEventListener('click', () => {
+            window.history.back();
+        });
+        settingLink.addEventListener('click', () => {
+            ipcRenderer.send('open-settings');
+        });
     };
+
+    async function initFeatures() {
+        const data = await UserManager.getCurrentUser();
+        console.log(data);
+        const role = data['role'];
+        console.log(role);
+        let divList = [];
+        if (role === "student") {
+            const createTeam = document.createElement('div');
+            createTeam.classList.add('feature');
+            createTeam.id = 'createTeam';
+            createTeam.innerText = '创建队伍';
+            createTeam.addEventListener('click', () => {
+                ipcRenderer.send('open-team-create');
+            })
+            divList.push(createTeam);
+        } else if (role === "teacher") {
+            const createClass = document.createElement('div');
+            createClass.classList.add('feature');
+            createClass.id = 'createClass';
+            createClass.innerText = '创建课堂';
+            createClass.addEventListener('click', () => {
+                ipcRenderer.send('open-class-create');
+            })
+            divList.push(createClass);
+        }
+        const featureList = document.getElementById('featureList');
+        featureList.appendChild(...divList);
+    }
 
     function traverseItems() {
         const items = document.getElementsByClassName('scroll-item');

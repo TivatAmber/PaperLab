@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Team</title>
+    <link rel="stylesheet" href="../css/createFloatingWindowStyle.css">
+</head>
+<body>
+<div class="content">
+    <form class="create-team-form" id="createClassForm">
+        <div class="input-group">
+        <h3><label for="className">课堂名称</label></h3>
+            <input type="text" placeholder="请输入" id="className">
+        </div>
+        <div class="input-group">
+            <h3><label for="classDescription">课堂简介</label> </h3>
+            <textarea class="description-input" placeholder="请输入" id="classDescription"></textarea>
+        </div>
+        <div class="button-container">
+            <button class="accept-button" id="create" type="submit">创建课堂</button>
+            <button class="reject-button" id="cancel">取消</button>
+        </div>
+    </form>
+</div>
+<script>
+    const { ipcRenderer } = require('electron');
+    const cancel = document.getElementById('cancel');
+    const form = document.getElementById('createClassForm');
+
+    form.addEventListener('submit', () => {
+        ipcRenderer.send('create-class', {
+            teamName: document.getElementById('className').value,
+            teamDescription: document.getElementById('classDescription').value,
+        });
+    })
+    cancel.addEventListener('click', () => {
+        ipcRenderer.send('close-window');
+    });
+
+    ipcRenderer.on('class-created', (event, {state}) => {
+        if (state === 'success') {
+            alert('课堂创建成功！');
+            ipcRenderer.send('close-window');
+        } else {
+            alert('课堂创建失败！');
+        }
+    });
+</script>
+</body>
+</html>
