@@ -35,27 +35,6 @@
         <div class="scroll-panel">
             <!--            <p>这是竞赛大厅的滑动面板内容。可以在这里添加更多内容，用户可以通过滚动查看。</p>-->
             <div class="scroll-gallery-competition" id="competition-result">
-                <div class="scroll-item">
-                    <h3 class="competition-item-title"> one </h3>
-                    <p class="competition-item-description">
-                        这是1的描述sdasdsaaddsdsdsdsdsdsdsdsdsdsddsadsadsdsadsadasdasdasdas <br/>
-                        fsdfdsfadsfdfadsfasdfasdfdfadsfdfadsfasdfasdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasdsdfdfadsfdfadsfasd
-                    </p>
-                    <div class="bottom-right-transform" id="teamLink" data-team-id="1"> details </div>
-                </div>
-                <div class="scroll-item">
-                    <h3 class="competition-item-title">大作业1</h3>
-                    <p class="competition-item-description">
-                    </p>
-                    <div class="bottom-right-transform" id="teamLink2" data-team-id="2">查看详情</div>
-                </div>
-                <div class="scroll-item">
-                    <h3 class="competition-item-title">大作业1</h3>
-                    <p class="competition-item-description">
-                        这是3的描述<br />
-                    </p>
-                    <div class="bottom-right-transform" id="teamLink3" data-team-id="3">查看详情</div>
-                </div>
             </div>
         </div>
     </div>
@@ -81,19 +60,23 @@
     </div>
 
     <div class="right-down-sidebar">
-        <h3 class="team-brief-title">队伍预览</h3>
-        <div class="team-preview">
+        <h3 >队伍预览</h3>
+        <div id="team-preview" class="team-brief-container">
+            <h4 class="team-brief-title"> </h4>
             <p class="team-brief" id="team-brief"> </p>
         </div>
     </div>
 </div>
 
+<script src="../../src/renderer/assignmentsManager.js">
+</script>
+<script src="../../src/renderer/searchManager.js">
+</script>
 <script>
     const { ipcRenderer } = require('electron');
 
     const homeLink = document.getElementById('homeLink');
     const settingLink = document.getElementById('settingsLink');
-    const teamLink = document.getElementById('teamLink');
     const createTeam = document.getElementById('createTeam');
 
     homeLink.addEventListener('click', () => {
@@ -106,20 +89,28 @@
         ipcRenderer.send('open-team-create');
     })
 
-    document.addEventListener('DOMContentLoaded', function() {
+    window.onload = () => {
+        console.log("assignments was loaded");
+        AssignmentManager.init("competition-result");
+        SearchManager.init("search-result");
+        AssignmentManager.update();
+        SearchManager.update();
         traverseItems();
-    });
+    };
 
     function traverseItems() {
         const items = document.getElementsByClassName('scroll-item');
-        const teamBrief = document.getElementById('team-brief');
+        const teamPreview = document.getElementById('team-preview');
+        const teamTitle = teamPreview.getElementsByClassName('team-brief-title')[0];
+        const teamBrief = teamPreview.getElementsByClassName('team-brief')[0];
 
         Array.from(items).forEach(item => {
             item.addEventListener('click', () => {
                 teamBrief.textContent = item.getElementsByClassName('competition-item-description')[0].textContent;
+                teamTitle.textContent = item.getElementsByClassName('competition-item-title')[0].textContent;
             });
             const button = item.getElementsByClassName('bottom-right-transform')[0];
-            console.log(button.id);
+            console.log(button.innerHTML);
 
             button.addEventListener('click', () => {
                 const teamId = button.dataset.teamId;

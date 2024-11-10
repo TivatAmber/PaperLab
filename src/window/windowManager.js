@@ -29,12 +29,11 @@ class WindowManager {
             width: 800,
             height: 600,
             resizable: false,
+            frame: false,
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false
             },
-            titleBarStyle: "hidden",
-            frame: false,
             parent: parentWindow,
             modal: false
         });

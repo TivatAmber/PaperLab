@@ -36,10 +36,9 @@
     <div class="ad">广告位招租</div>
 </div>
 
+<script src="../../src/renderer/userManager.js"></script>
 <script>
     // 获取页面元素
-    const { ipcRenderer } = require('electron');
-
     const assignmentsLink = document.getElementById('assignmentsLink');
     const competitionLink = document.getElementById('competitionLink');
     const settingsLink = document.getElementById('settingsLink');
@@ -58,9 +57,11 @@
         ipcRenderer.send('open-settings');
     });
     homeLink.addEventListener('click', () => {
-        ipcRenderer.send('open-login');
+        console.log("logout")
+        if (UserManager.logout()) {
+            ipcRenderer.send('open-login');
+        }
     });
-
 </script>
 </body>
 </html>

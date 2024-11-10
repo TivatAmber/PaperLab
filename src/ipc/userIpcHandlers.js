@@ -17,6 +17,7 @@ class UserIPCHandlers {
         ipcMain.handle('login-user', async (event, { username, password, role}) => {
             const user = this.userDataService.loginUser(username, password, role);
             if (user) {
+                user[password] = "114514";
                 this.windowManager.handleLoginSuccess(
                     this.windowManager.mainWindow,
                     user
@@ -34,7 +35,7 @@ class UserIPCHandlers {
             if (success) {
                 this.windowManager.loadPage(
                     this.windowManager.mainWindow,
-                    'index.html'
+                    'login.html'
                 );
             }
             return success;
