@@ -27,6 +27,7 @@
     </div>
 </div>
 
+<script src="../../src/renderer/userManager.js"></script>
 <script>
     const { ipcRenderer } = require('electron');
     const registerForm = document.getElementById('registerForm');
@@ -38,9 +39,8 @@
 
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        UserManager.register(document.getElementById('newUsername').value, document.getElementById('newPassword').value);
         alert('Registration successful!');
-        ipcRenderer.send('open-login');
     });
 </script>
 </body>

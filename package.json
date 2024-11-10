@@ -12,6 +12,7 @@
     "electron": "^32.1.2"
   },
   "dependencies": {
+    "electron": "^32.1.2",
     "electron-store": "^10.0.0"
   }
 }

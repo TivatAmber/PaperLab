@@ -7,13 +7,17 @@
 </head>
 <body>
 <div class="content">
-    <form id="createTeamForm">
-        <h3>队伍名称</h3>
-        <input type="text" placeholder="请输入" id="teamName">
-        <h3>队伍简介</h3>
-        <textarea class="description-input" placeholder="请输入" id="teamDescription"></textarea>
-        <div>
-            <h3>选择课堂</h3>
+    <form class="create-team-form" id="createTeamForm">
+        <div class="input-group">
+        <h3><label for="teamName">队伍名称</label></h3>
+            <input type="text" placeholder="请输入" id="teamName">
+        </div>
+        <div class="input-group">
+            <h3><label for="teamDescription"> 队伍简介 </label> </h3>
+            <textarea class="description-input" placeholder="请输入" id="teamDescription"></textarea>
+        </div>
+        <div class="input-group">
+            <h3><label for="teamClass">选择课堂</label></h3>
             <!--TODO: Add class selection-->
             <select id="teamClass" required>
                 <option value="" disabled selected>Select your class</option>
@@ -22,8 +26,8 @@
             </select>
         </div>
         <div class="button-container">
-            <button type="submit">创建队伍</button>
-            <button id="cancel">取消</button>
+            <button class="accept-button" id="create" type="submit">创建队伍</button>
+            <button class="reject-button" id="cancel">取消</button>
         </div>
     </form>
 </div>

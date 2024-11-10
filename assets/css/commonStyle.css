@@ -158,3 +158,34 @@ body {
     text-align: center;
     justify-content: center;
 }
+
+
+.bottom-right-transform {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(-10px, -10px); /* Offset from edges */
+}
+
+.bottom-right-transform:hover {
+    transform: translate(-10px, -10px) scale(1.1); /* Scale on hover */
+}
+
+.bottom-left-transform {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(10px, -10px); /* Offset from edges */
+}
+
+.bottom-left-transform:hover {
+    transform: translate(10px, -10px) scale(1.1); /* Scale on hover */
+}
+
+.accept-button {
+    color: green;
+}
+
+.reject-button {
+    color: red;
+}

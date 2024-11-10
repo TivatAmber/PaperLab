@@ -63,6 +63,7 @@
     background-color: #ddd;
     border: 1px solid #ccc;
     justify-items: center;
+    position: relative;
 }
 
 .scroll-item-application h4 {

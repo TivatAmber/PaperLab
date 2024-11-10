@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="stylesheet" href="../css/commonStyle.css">
     <link rel="stylesheet" href="../css/loginStyle.css">
 </head>
 <body>
@@ -36,8 +37,8 @@
     </div>
 </div>
 
+<script src="../../src/renderer/userManager.js"></script>
 <script>
-    const { ipcRenderer } = require('electron');
     const form = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
     const registerLink = document.getElementById('registerLink');
@@ -46,19 +47,27 @@
         ipcRenderer.send('open-register');
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
 
-        const userInfo = { username: username, role: role }
-        if (username === 'admin' && password === '123456') {
-            ipcRenderer.send('login-success', userInfo);
-        } else {
+        const user = UserManager.login(username, password, role);
+        if (!user) {
             errorMessage.textContent = 'Invalid username or password!';
+            return;
         }
+        // const username = document.getElementById('username').value;
+        // const password = document.getElementById('password').value;
+        // const role = document.getElementById('role').value;
+        //
+        // const userInfo = { username: username, role: role }
+        // if (username === 'admin' && password === '123456') {
+        //     ipcRenderer.send('login-success', userInfo);
+        // } else {
+        //     errorMessage.textContent = 'Invalid username or password!';
+        // }
     });
 </script>
 </body>
