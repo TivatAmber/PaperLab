@@ -43,7 +43,8 @@ class UserDataService {
                 this.currentUser = {
                     account: account,
                     role: role,
-                    user_id: result['user_id']
+                    user_id: result['user_id'],
+                    description: result['description']
                 };
                 console.log(this.currentUser)
                 return this.currentUser;
@@ -66,12 +67,16 @@ class UserDataService {
         }
     }
 
-    updateUserInfo(username, updateData) {
+    updateUserDescription(description) {
         try {
-            // TODO
-            return true;
+            this.currentUser['description'] = description;
+            const result = UserHttpHandler.sentPostRequest('update_user_description', {
+                user_id: this.currentUser['user_id'],
+                new_description: description
+            });
+            return result;
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error updating user description:', error);
             return false;
         }
     }

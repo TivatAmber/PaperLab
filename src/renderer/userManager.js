@@ -48,6 +48,16 @@ class UserManager {
     static async removeTeam(group_id) {
         return await ipcRenderer.invoke('remove-team', {group_id});
     }
+
+    static async AppearInfo() {
+        const user = await this.getCurrentUser();
+        document.getElementById('student-id').innerText = user['user_id'];
+        document.getElementById('nickname').innerText = user['account'];
+    }
+
+    static async updateUserDescription(description) {
+        return await ipcRenderer.invoke('update-user-description', {description});
+    }
 }
 
 // Export for browser environment

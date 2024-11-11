@@ -29,7 +29,13 @@
         <div class="feature" id="competitionLink">竞赛</div>
     </div>
 
-    <div class="team">我的队伍</div>
+    <div class="team">
+        <h2>我的课堂</h2>
+        <div class="scroll-panel">
+            <div class="scroll-gallery" id="my-team">
+            </div>
+        </div>
+    </div>
 
     <div class="announcement">公告</div>
 
@@ -38,6 +44,7 @@
 
 <script>
     const UserManager = require('../../src/renderer/userManager');
+    const MyClassManager = require('../../src/renderer/myClassManager');
     const {ipcRenderer} = require('electron');
 
     // 获取页面元素
@@ -63,6 +70,12 @@
             ipcRenderer.send('open-login');
         }
     });
+
+    window.onload = async () => {
+        await UserManager.AppearInfo();
+        MyClassManager.init('my-team');
+        await MyClassManager.update();
+    }
 </script>
 </body>
 </html>

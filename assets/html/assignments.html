@@ -67,6 +67,7 @@
     const UserManager = require('../../src/renderer/userManager.js');
     window.onload = async () => {
         console.log("assignments was loaded");
+        await UserManager.AppearInfo();
 
         const homeLink = document.getElementById('homeLink');
         const settingLink = document.getElementById('settingsLink');

@@ -17,35 +17,54 @@
             <img src="../image/profile.png" alt="头像" class="setting-profile-picture">
         </div>
         <div class="info-display">
-            <p><strong>学号：</strong><span id="student-id">123456</span></p>
-            <p><strong>昵称：</strong><span id="nickname">小明</span></p>
+            <p><strong>ID：</strong><span id="student-id"></span></p>
+            <p><strong>账号：</strong><span id="nickname"></span></p>
+            <p><strong>个性签名：</strong><span id="description"></span></p>
         </div>
     </div>
 
     <!-- 右侧内容区 -->
     <div class="content">
         <h2>个人信息设置</h2>
-        <form class="setting-info" id="settingForm">
-            <div class="input-group">
-                <label for="description"> 个人签名 </label>
-                <input type="text" id="description" placeholder="请输入 ..." required>
+        <form class="setting-form" id="settingForm">
+            <div class="setting-info">
+                <div class="input-group">
+                    <label for="descriptionChange"> 个人签名 </label>
+                    <input type="text" id="descriptionChange" placeholder="请输入 ..." required>
+                </div>
             </div>
-
-            <div class="input-group">
-                <label for="nickname"> 昵称 </label>
-                <input type="text" id="nickname" placeholder="请输入 ..." required>
-            </div>
+            <button type="submit" class="commit-button">
+                提交修改
+            </button>
         </form>
     </div>
 </div>
 
 <script>
-    // const { ipcRenderer } = require('electron');
+    const UserManager = require('../../src/renderer/userManager');
     const homeLink = document.getElementById('homeLink');
+    const settingForm = document.getElementById('settingForm');
+    settingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const description = document.getElementById('descriptionChange').value;
+        const response = await UserManager.updateUserDescription(description);
+        await AppearInfo();
+        alert(response['message']);
+    });
 
     homeLink.addEventListener('click', () => {
         window.history.back();
     });
+
+    window.onload = async () => {
+        await AppearInfo();
+    }
+    async function AppearInfo() {
+        const user = await UserManager.getCurrentUser();
+        document.getElementById('student-id').innerText = user['user_id'];
+        document.getElementById('nickname').innerText = user['account'];
+        document.getElementById('description').innerText = user['description'];
+    }
 </script>
 </body>
 </html>

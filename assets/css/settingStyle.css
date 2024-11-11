@@ -56,6 +56,15 @@
     justify-content: space-evenly;
 }
 
+.setting-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
 /* 输入框和选择框容器 */
 .input-group {
     margin-bottom: 15px;
@@ -88,4 +97,20 @@
 .input-group select {
     text-align-last: center; /* 让选中的选项居中显示 */
     cursor: pointer;
+}
+
+.commit-button {
+    width: 20%;
+    max-width: 100px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.commit-button:hover {
+    background-color: #45a049;
 }

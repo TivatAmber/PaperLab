@@ -8,7 +8,7 @@ class UserHttpHandler {
             method: 'GET',
             headers: {
                 ...args,
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
                 'Content-Length': content.length
             },
             body: content
@@ -26,7 +26,7 @@ class UserHttpHandler {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
                 'Content-Length': body.length
             },
             body: body

@@ -135,6 +135,10 @@ class UserIPCHandlers {
                 group_id: group_id
             });
         })
+
+        ipcMain.handle('update-user-description', async (event, {description}) => {
+            return this.userDataService.updateUserDescription(description);
+        });
     }
 }
 

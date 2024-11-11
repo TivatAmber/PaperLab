@@ -29,15 +29,23 @@
         <div class="feature" id="competitionLink">竞赛</div>
     </div>
 
-    <div class="team">我的队伍</div>
+    <div class="team">
+        <h2>我的队伍</h2>
+        <div class="scroll-panel">
+            <div class="scroll-gallery" id="my-team">
+            </div>
+        </div>
+    </div>
 
     <div class="announcement">公告</div>
 
     <div class="ad">广告位招租</div>
 </div>
 
-<script src="../../src/renderer/userManager.js"></script>
 <script>
+    const {ipcRenderer} = require('electron');
+    const UserManager = require('../../src/renderer/userManager');
+    const MyTeamManager = require('../../src/renderer/myTeamManager');
     // 获取页面元素
     const assignmentsLink = document.getElementById('assignmentsLink');
     const competitionLink = document.getElementById('competitionLink');
@@ -62,6 +70,34 @@
             ipcRenderer.send('open-login');
         }
     });
+
+    window.onload = async () => {
+        await UserManager.AppearInfo();
+        MyTeamManager.init('my-team');
+        await MyTeamManager.update();
+        traverseItems()
+    }
+
+    function traverseItems() {
+        const items = document.getElementsByClassName('scroll-item');
+
+        Array.from(items).forEach(item => {
+            const button = item.getElementsByClassName('bottom-right-transform')[0];
+            console.log(button.innerHTML);
+
+            button.addEventListener('click', () => {
+                const teamId = button.dataset.teamId;
+                if (!teamId) {
+                    console.error("No team id found");
+                    return;
+                }
+
+                ipcRenderer.send('open-team', {
+                    teamId: teamId
+                });
+            });
+        });
+    }
 </script>
 </body>
 </html>
