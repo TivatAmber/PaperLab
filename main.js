@@ -2,7 +2,6 @@ const { app, ipcMain} = require('electron');
 const WindowManager = require('./src/window/windowManager');
 const IPCHandlers = require('./src/ipc/ipcHandlers');
 const UserIPCHandlers = require('./src/ipc/userIpcHandlers');
-const SearchHandlers = require('./src/ipc/searchHandler');
 const UserDataService = require('./src/services/userDataService');
 const SearchService = require('./src/services/searchService');
 
@@ -23,11 +22,6 @@ class Application {
             this.userIpcHandlers = new UserIPCHandlers(
                 this.userDataService,
                 this.windowManager
-            );
-            this.searchHandlers = new SearchHandlers(
-                this.windowManager,
-                this.userDataService,
-                this.searchService
             );
             this.windowManager.mainWindow.center();
         });

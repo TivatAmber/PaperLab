@@ -83,7 +83,7 @@
         if (role === "student") divList = studentFeature();
         else if (role === "teacher") divList = teacherFeature();
         const featureList = document.getElementById('featureList');
-        featureList.appendChild(...divList);
+        featureList.append(...divList);
     }
 
     function studentFeature() {

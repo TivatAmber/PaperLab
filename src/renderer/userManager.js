@@ -20,6 +20,14 @@ class UserManager {
     static async updateUser(username, updateData) {
         return await ipcRenderer.invoke('update-user', { username, updateData });
     }
+
+    static async createClass(className, classDescription) {
+        return await ipcRenderer.invoke('create-class', {className, classDescription});
+    }
+
+    static async joinClass(classCode) {
+        return await ipcRenderer.invoke('join-class', {classCode});
+    }
 }
 
 // Export for browser environment

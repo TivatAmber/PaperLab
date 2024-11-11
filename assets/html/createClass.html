@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="content">
-    <form class="create-team-form" id="createClassForm">
+    <form class="input-form" id="createClassForm">
         <div class="input-group">
         <h3><label for="className">课堂名称</label></h3>
             <input type="text" placeholder="请输入" id="className">
@@ -24,26 +24,25 @@
 </div>
 <script>
     const { ipcRenderer } = require('electron');
+    const UserManager = require('../../src/renderer/userManager.js');
     const cancel = document.getElementById('cancel');
     const form = document.getElementById('createClassForm');
 
-    form.addEventListener('submit', () => {
-        ipcRenderer.send('create-class', {
-            teamName: document.getElementById('className').value,
-            teamDescription: document.getElementById('classDescription').value,
-        });
-    })
-    cancel.addEventListener('click', () => {
-        ipcRenderer.send('close-window');
-    });
-
-    ipcRenderer.on('class-created', (event, {state}) => {
-        if (state === 'success') {
-            alert('课堂创建成功！');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const className = document.getElementById('className').value;
+        const classDescription = document.getElementById('classDescription').value
+        const result = await UserManager.createClass(className, classDescription);
+        if (result['success']) {
+            alert('课堂创建成功！\n课堂邀请码：' + result['join_key']);
             ipcRenderer.send('close-window');
         } else {
             alert('课堂创建失败！');
         }
+    });
+
+    cancel.addEventListener('click', () => {
+        ipcRenderer.send('close-window');
     });
 </script>
 </body>

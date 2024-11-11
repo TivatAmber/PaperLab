@@ -60,13 +60,11 @@
     </div>
 </div>
 
-<script src="../../src/renderer/assignmentsManager.js">
-</script>
-<script src="../../src/renderer/searchManager.js">
-</script>
-<script src="../../src/renderer/userManager.js">
-</script>
 <script>
+    const {ipcRenderer} = require('electron');
+    const AssignmentManager = require('../../src/renderer/assignmentsManager.js');
+    const SearchManager = require('../../src/renderer/searchManager.js');
+    const UserManager = require('../../src/renderer/userManager.js');
     window.onload = () => {
         console.log("assignments was loaded");
         AssignmentManager.init("competition-result");
@@ -102,6 +100,15 @@
                 ipcRenderer.send('open-team-create');
             })
             divList.push(createTeam);
+
+            const joinClass = document.createElement('div');
+            joinClass.classList.add('feature');
+            joinClass.id = 'joinClass';
+            joinClass.innerText = '加入课堂';
+            joinClass.addEventListener('click', () => {
+                ipcRenderer.send('open-class-join');
+            })
+            divList.push(joinClass);
         } else if (role === "teacher") {
             const createClass = document.createElement('div');
             createClass.classList.add('feature');
@@ -113,7 +120,7 @@
             divList.push(createClass);
         }
         const featureList = document.getElementById('featureList');
-        featureList.appendChild(...divList);
+        featureList.append(...divList);
     }
 
     function traverseItems() {

@@ -24,18 +24,17 @@ class WindowManager {
         return this.mainWindow;
     }
 
-    createFloatingWindow(fileName, parentWindow) {
+    createFloatingWindow(fileName, parentWindow, width = 800, height = 600) {
         this.floatingWindow = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: width,
+            height: height,
             resizable: false,
             frame: false,
             webPreferences: {
                 nodeIntegration: true,
-                contextIsolation: false
+                contextIsolation: false,
             },
             parent: parentWindow,
-            modal: false
         });
 
         this.floatingWindow.loadFile(path.join(__dirname, '../../assets/html/' + fileName));

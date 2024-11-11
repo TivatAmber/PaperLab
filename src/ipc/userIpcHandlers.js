@@ -1,5 +1,6 @@
 // src/ipc/userIpcHandlers.js
 const { ipcMain } = require('electron');
+const UserHttpHandler = require("../http/userHttpHandler");
 
 class UserIPCHandlers {
     constructor(userDataService, windowManager) {
@@ -14,10 +15,14 @@ class UserIPCHandlers {
             return this.userDataService.getCurrentUser();
         });
 
+        ipcMain.handle('join-team', async() => {
+            return this.userDataService.joinTeam();
+        })
+
         ipcMain.handle('login-user', async (event, { username, password, role}) => {
-            const user = this.userDataService.loginUser(username, password, role);
+            const user = await this.userDataService.loginUser(username, password, role);
             if (user) {
-                user[password] = "114514";
+                user["password"] = "114514";
                 this.windowManager.handleLoginSuccess(
                     this.windowManager.mainWindow,
                     user
@@ -44,6 +49,29 @@ class UserIPCHandlers {
         ipcMain.handle('update-user', async (event, { username, updateData }) => {
             return this.userDataService.updateUserInfo(username, updateData);
         });
+
+        ipcMain.handle('create-class', async (event, classData) => {
+            const user = this.userDataService.getCurrentUser();
+            console.log(
+                classData.className + "\n",
+                classData.classDescription + "\n"
+            );
+            return await UserHttpHandler.sentPostRequest('teacher_create_class', {
+                teacher: user['user_id'],
+                class: classData.className
+            });
+        });
+
+        ipcMain.handle('join-class', async (event, {classCode}) => {
+              const user = this.userDataService.getCurrentUser();
+              console.log(
+                  user['user_id'] + "join class",
+              );
+              return await UserHttpHandler.sentPostRequest('student_join_class_by_key', {
+                  student_id: user['user_id'],
+                  join_key: classCode
+              });
+        })
     }
 }
 

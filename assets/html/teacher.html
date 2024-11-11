@@ -36,14 +36,15 @@
     <div class="ad">广告位招租</div>
 </div>
 
-<script src="../../src/renderer/userManager.js"></script>
 <script>
+    const UserManager = require('../../src/renderer/userManager');
+    const {ipcRenderer} = require('electron');
+
     // 获取页面元素
     const assignmentsLink = document.getElementById('assignmentsLink');
     const competitionLink = document.getElementById('competitionLink');
     const settingsLink = document.getElementById('settingsLink');
     const homeLink = document.getElementById('homeLink')
-
     // 为元素添加点击事件监听器
     assignmentsLink.addEventListener('click', () => {
         ipcRenderer.send('open-assignments');

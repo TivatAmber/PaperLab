@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Team</title>
+    <link rel="stylesheet" href="../css/createFloatingWindowStyle.css">
+</head>
+<body>
+<div class="content">
+    <form class="input-form" id="joinClassForm">
+        <div class="input-group">
+            <h3><label for="teamClass">課堂邀請碼</label></h3>
+            <input type="text" placeholder="请输入" id="classCode"></input>
+        </div>
+        <div class="button-container">
+            <button class="accept-button" id="create" type="submit">加入課堂</button>
+            <button class="reject-button" id="cancel">取消</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const UserManager = require('../../src/renderer/userManager.js');
+    const { ipcRenderer } = require('electron');
+    const cancel = document.getElementById('cancel');
+    const form = document.getElementById('joinClassForm');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const ClassCode = document.getElementById('classCode').value;
+        const result = await UserManager.joinClass(ClassCode);
+        alert(result['message']);
+        if (result['success']) ipcRenderer.send('close-window');
+    })
+    cancel.addEventListener('click', () => {
+        ipcRenderer.send('close-window');
+    });
+</script>
+</body>
+</html>

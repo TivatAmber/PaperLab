@@ -1,5 +1,7 @@
 // src/ipc/ipcHandlers.js
 const { ipcMain, BrowserWindow } = require('electron');
+const UserManager = require('../renderer/userManager');
+const UserHttpHandler = require('../http/userHttpHandler');
 
 class IPCHandlers {
     constructor(windowManager) {
@@ -70,6 +72,16 @@ class IPCHandlers {
             );
         })
 
+        ipcMain.on('open-class-join', () => {
+            if (this.windowManager.floatingWindow != null) return;
+            this.windowManager.createFloatingWindow(
+                'joinClass.html',
+                this.windowManager.mainWindow,
+                300,
+                250
+            )
+        })
+
         ipcMain.on('create-team', (event, teamData) => {
             console.log(
                 teamData.teamName + "\n",
@@ -78,16 +90,6 @@ class IPCHandlers {
             );
             // TODO
             event.reply('team-created', { state: 'success' });
-        });
-
-        ipcMain.on('create-class', (event, classData) => {
-            console.log(
-                classData.className + "\n",
-                classData.classDescription + "\n" +
-                classData.classTeacher
-            );
-            // TODO
-            event.reply('class-created', { state: 'success' });
         });
 
         ipcMain.on('close-window', (event) => {

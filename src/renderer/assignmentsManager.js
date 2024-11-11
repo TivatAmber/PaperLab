@@ -1,13 +1,18 @@
+// const path = require('path');
+const UserManager = require('./userManager');
+const UserHttpHandler = require('../http/userHttpHandler');
+
 class AssignmentManager {
     static init(containerId) {
         this.container = document.getElementById(containerId);
         this.counter = 0;
     }
 
-    static getScrollItem() {
+    static async getScrollItem() {
         const scrollItem = document.createElement('div');
         scrollItem.classList.add('scroll-item');
         // TODO Get Info From remote
+
         const title = "Title";
         const description = "Description";
         const teamId = this.counter;
@@ -24,10 +29,13 @@ class AssignmentManager {
         return scrollItem;
     }
 
-    static update() {
+    static async update() {
+        const user = await UserManager.getCurrentUser();
+        const response = await UserHttpHandler.sentPostRequest('get_user_classes', {user_id: user['user_id']});
+        console.log(response)
         // TODO Fetch Data From Remote
         for (let i = 0; i < 10; i++) {
-            const scrollItem = this.getScrollItem();
+            const scrollItem = await this.getScrollItem();
             this.container.appendChild(scrollItem);
         }
     }

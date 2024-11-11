@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="content">
-    <form class="create-team-form" id="createTeamForm">
+    <form class="input-form" id="createTeamForm">
         <div class="input-group">
         <h3><label for="teamName">队伍名称</label></h3>
             <input type="text" placeholder="请输入" id="teamName">
@@ -37,7 +37,7 @@
     const form = document.getElementById('createTeamForm');
 
     form.addEventListener('submit', () => {
-        ipcRenderer.send('create-team', {
+        ipcRenderer.send('create-class', {
             teamName: document.getElementById('teamName').value,
             teamDescription: document.getElementById('teamDescription').value,
             teamClass: document.getElementById('teamClass').value
@@ -47,7 +47,7 @@
         ipcRenderer.send('close-window');
     });
 
-    ipcRenderer.on('team-created', (event, {state}) => {
+    ipcRenderer.on('class-created', (event, {state}) => {
         if (state === 'success') {
             alert('队伍创建成功！');
             ipcRenderer.send('close-window');

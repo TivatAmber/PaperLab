@@ -19,8 +19,17 @@
                 <label for="newPassword">Password</label>
                 <input type="password" id="newPassword" placeholder="Enter a password" required>
             </div>
+            <div class="input-group">
+                <label for="role">Select Role</label>
+                <select id="role" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+            </div>
             <button type="submit" class="login-button">Register</button>
         </form>
+        <p class="error-message" id="errorMessage"></p>
         <p class="login-link">
             Already have an account? <a href="#" id="loginLink">Login here</a>
         </p>
@@ -29,7 +38,6 @@
 
 <script src="../../src/renderer/userManager.js"></script>
 <script>
-    const { ipcRenderer } = require('electron');
     const registerForm = document.getElementById('registerForm');
     const loginLink = document.getElementById('loginLink');
 
@@ -37,10 +45,19 @@
         ipcRenderer.send('open-login');
     });
 
-    registerForm.addEventListener('submit', (e) => {
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        UserManager.register(document.getElementById('newUsername').value, document.getElementById('newPassword').value);
-        alert('Registration successful!');
+        const result = await UserManager.register({
+                account: document.getElementById('newUsername').value,
+                password: document.getElementById('newPassword').value,
+                identity: document.getElementById('role').value
+            }
+        );
+        if (result) {
+            alert('Registration successful!');
+            ipcRenderer.send('open-login');
+        }
+        else alert('Registration failed!');
     });
 </script>
 </body>
