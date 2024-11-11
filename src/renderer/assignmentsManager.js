@@ -8,14 +8,13 @@ class AssignmentManager {
         this.counter = 0;
     }
 
-    static async getScrollItem() {
+    static async getScrollItem(item) {
         const scrollItem = document.createElement('div');
         scrollItem.classList.add('scroll-item');
-        // TODO Get Info From remote
 
-        const title = "Title";
-        const description = "Description";
-        const teamId = this.counter;
+        const title = item['name'];
+        const description = item['description'];
+        const teamId = item['id'];
 
         scrollItem.innerHTML = `
             <h3 class=competition-item-title> ${title} </h3>
@@ -25,18 +24,21 @@ class AssignmentManager {
             <div class="bottom-right-transform" data-team-id=${teamId}> details </div>
         `;
 
-        this.counter++;
         return scrollItem;
     }
 
     static async update() {
+        this.container.replaceChildren();
         const user = await UserManager.getCurrentUser();
         const response = await UserHttpHandler.sentPostRequest('get_user_classes', {user_id: user['user_id']});
-        console.log(response)
-        // TODO Fetch Data From Remote
-        for (let i = 0; i < 10; i++) {
-            const scrollItem = await this.getScrollItem();
-            this.container.appendChild(scrollItem);
+        const classes = response['classes'];
+        for (let i = 0; i < classes.length; i++) {
+            const groupResponse = await UserHttpHandler.sentPostRequest('get_all_groups', {class: classes[i]['id']});
+            const groups = groupResponse['groups'];
+            for (let i = 0; i < groups.length; i++) {
+                const scrollItem = await this.getScrollItem(groups[i]);
+                this.container.appendChild(scrollItem);
+            }
         }
     }
 }

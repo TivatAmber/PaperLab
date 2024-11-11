@@ -5,6 +5,10 @@ class UserManager {
         return await ipcRenderer.invoke('get-current-user');
     }
 
+    static async getCurrentTeam() {
+        return await ipcRenderer.invoke('get-current-team');
+    }
+
     static async login(username, password, role) {
         return await ipcRenderer.invoke('login-user', { username, password, role});
     }
@@ -27,6 +31,22 @@ class UserManager {
 
     static async joinClass(classCode) {
         return await ipcRenderer.invoke('join-class', {classCode});
+    }
+
+    static async createTeam(class_id, team_name, description) {
+        return await ipcRenderer.invoke('create-team', {class_id, team_name, description});
+    }
+
+    static async applyToTeam(group_id) {
+        return await ipcRenderer.invoke('apply-to-team', {group_id});
+    }
+
+    static async leaveTeam(group_id) {
+        return await ipcRenderer.invoke('leave-team', {group_id});
+    }
+
+    static async removeTeam(group_id) {
+        return await ipcRenderer.invoke('remove-team', {group_id});
     }
 }
 

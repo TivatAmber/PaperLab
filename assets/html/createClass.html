@@ -33,12 +33,8 @@
         const className = document.getElementById('className').value;
         const classDescription = document.getElementById('classDescription').value
         const result = await UserManager.createClass(className, classDescription);
-        if (result['success']) {
-            alert('课堂创建成功！\n课堂邀请码：' + result['join_key']);
-            ipcRenderer.send('close-window');
-        } else {
-            alert('课堂创建失败！');
-        }
+        alert(result['message'] + "\n" + "join key:" + result['join_key']);
+        if (result['success']) ipcRenderer.send('close-window');
     });
 
     cancel.addEventListener('click', () => {

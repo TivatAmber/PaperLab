@@ -7,10 +7,15 @@ const UserHttpHandler = require('../http/userHttpHandler');
 class UserDataService {
     constructor() {
         this.currentUser = null;
+        this.currentTeam = null;
     }
 
     getCurrentUser() {
         return this.currentUser;
+    }
+
+    getCurrentTeam() {
+        return this.currentTeam;
     }
 
     async saveUser(userData) {
@@ -69,10 +74,6 @@ class UserDataService {
             console.error('Error updating user:', error);
             return false;
         }
-    }
-
-    async joinTeam(user) {
-        // TODO
     }
 }
 

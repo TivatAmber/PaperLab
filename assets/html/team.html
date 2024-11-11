@@ -50,11 +50,12 @@
     </div>
 </div>
 
-<script src="../../src/renderer/userManager.js"></script>
-<script src="../../src/renderer/applicationManager.js"></script>
-<script src="../../src/renderer/teammateManager.js"></script>
 <script>
     // 获取页面元素
+    const {ipcRenderer} = require('electron');
+    const UserManager = require('../../src/renderer/userManager');
+    const ApplicationManager = require('../../src/renderer/applicationManager');
+    const TeammateManager = require('../../src/renderer/teammateManager');
     const settingsLink = document.getElementById('settingsLink');
     const homeLink = document.getElementById('homeLink');
 
@@ -65,13 +66,14 @@
         window.history.back();
     });
 
-    window.onload = () => {
+    window.onload = async () => {
         console.log("team is loaded");
+        const teamId = await UserManager.getCurrentTeam();
         ApplicationManager.init('applications');
         TeammateManager.init('teammates');
-        ApplicationManager.update()
-        TeammateManager.update();
-        initFeatures();
+        await ApplicationManager.update(teamId)
+        await TeammateManager.update(teamId);
+        await initFeatures();
     }
 
     async function initFeatures() {
@@ -92,13 +94,26 @@
         joinGroup.classList.add('feature');
         joinGroup.id = 'joinGroup';
         joinGroup.innerText = '加入小组';
-        // TODO function of join Group
+        joinGroup.addEventListener('click', async(e) => {
+            e.preventDefault();
+            const teamId = await UserManager.getCurrentTeam();
+            const response = await UserManager.applyToTeam(teamId);
+            await ApplicationManager.update(teamId);
+            alert(response['message']);
+        });
         divList.push(joinGroup);
         const leaveGroup = document.createElement('div');
         leaveGroup.classList.add('feature');
         leaveGroup.id = 'leaveGroup';
         leaveGroup.innerText = '退出小组';
-        // TODO function of leave Group
+        leaveGroup.addEventListener('click', async(e) => {
+            e.preventDefault();
+            const teamId = await UserManager.getCurrentTeam();
+            const response = await UserManager.leaveTeam(teamId);
+            await ApplicationManager.update(teamId);
+            await TeammateManager.update(teamId);
+            alert(response['message']);
+        });
         divList.push(leaveGroup);
         return divList;
     }
@@ -109,7 +124,13 @@
         removeTeam.classList.add('feature');
         removeTeam.id = 'removeTeam';
         removeTeam.innerText = '解散队伍';
-        // TODO function of remove Team
+        removeTeam.addEventListener('click', async(e) => {
+            e.preventDefault();
+            const teamId = await UserManager.getCurrentTeam();
+            const response = await UserManager.removeTeam(teamId);
+            alert(response['message']);
+            window.history.back();
+        });
         divList.push(removeTeam);
         return divList;
     }

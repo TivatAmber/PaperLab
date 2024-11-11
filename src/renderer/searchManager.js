@@ -4,9 +4,9 @@ class SearchManager {
         this.counter = 0;
     }
     static getScrollItem() {
+        this.container.replaceChildren();
         const scrollItem = document.createElement('div');
         scrollItem.classList.add('scroll-item');
-        // TODO Get Info From remote
         const title = "Title";
         const description = "Description";
         const teamId = this.counter;

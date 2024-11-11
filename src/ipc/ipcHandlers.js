@@ -42,20 +42,6 @@ class IPCHandlers {
             );
         });
 
-        // Team handlers
-        ipcMain.on('open-team', (event, data = {}) => {
-            const { teamId = null } = data;
-            if (!teamId) {
-                console.error("No TeamId received");
-                return;
-            }
-            console.log("TeamId: ", teamId);
-            this.windowManager.loadPage(
-                this.windowManager.mainWindow,
-                'team.html'
-            );
-        });
-
         ipcMain.on('open-team-create', () => {
             if (this.windowManager.floatingWindow != null) return;
             this.windowManager.createFloatingWindow(
@@ -81,16 +67,6 @@ class IPCHandlers {
                 250
             )
         })
-
-        ipcMain.on('create-team', (event, teamData) => {
-            console.log(
-                teamData.teamName + "\n",
-                teamData.teamDescription + "\n" +
-                teamData.teamClass
-            );
-            // TODO
-            event.reply('team-created', { state: 'success' });
-        });
 
         ipcMain.on('close-window', (event) => {
             const win = BrowserWindow.fromWebContents(event.sender);

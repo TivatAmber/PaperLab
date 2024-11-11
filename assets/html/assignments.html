@@ -65,14 +65,8 @@
     const AssignmentManager = require('../../src/renderer/assignmentsManager.js');
     const SearchManager = require('../../src/renderer/searchManager.js');
     const UserManager = require('../../src/renderer/userManager.js');
-    window.onload = () => {
+    window.onload = async () => {
         console.log("assignments was loaded");
-        AssignmentManager.init("competition-result");
-        SearchManager.init("search-result");
-        AssignmentManager.update();
-        SearchManager.update();
-        traverseItems();
-        initFeatures();
 
         const homeLink = document.getElementById('homeLink');
         const settingLink = document.getElementById('settingsLink');
@@ -83,6 +77,13 @@
         settingLink.addEventListener('click', () => {
             ipcRenderer.send('open-settings');
         });
+
+        AssignmentManager.init("competition-result");
+        SearchManager.init("search-result");
+        await AssignmentManager.update();
+        SearchManager.update();
+        traverseItems();
+        await initFeatures();
     };
 
     async function initFeatures() {
@@ -143,6 +144,7 @@
                     console.error("No team id found");
                     return;
                 }
+
                 ipcRenderer.send('open-team', {
                     teamId: teamId
                 });

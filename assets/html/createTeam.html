@@ -21,8 +21,8 @@
             <!--TODO: Add class selection-->
             <select id="teamClass" required>
                 <option value="" disabled selected>Select your class</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
+<!--                <option value="A">A</option>-->
+<!--                <option value="B">B</option>-->
             </select>
         </div>
         <div class="button-container">
@@ -32,28 +32,29 @@
     </form>
 </div>
 <script>
+    const UserManager = require('../../src/renderer/userManager.js');
     const { ipcRenderer } = require('electron');
+    const ClassManager = require('../../src/renderer/classManager');
     const cancel = document.getElementById('cancel');
     const form = document.getElementById('createTeamForm');
 
-    form.addEventListener('submit', () => {
-        ipcRenderer.send('create-class', {
-            teamName: document.getElementById('teamName').value,
-            teamDescription: document.getElementById('teamDescription').value,
-            teamClass: document.getElementById('teamClass').value
-        });
+    window.onload = () => {
+        ClassManager.init('teamClass');
+        ClassManager.update();
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const teamName = document.getElementById('teamName').value;
+        const teamDescription = document.getElementById('teamDescription').value;
+        const teamClass = document.getElementById('teamClass').value;
+        console.log("create")
+        const result = await UserManager.createTeam(teamClass, teamName, teamDescription);
+        alert(result['message']);
+        if (result['success']) ipcRenderer.send('close-window');
     })
     cancel.addEventListener('click', () => {
         ipcRenderer.send('close-window');
-    });
-
-    ipcRenderer.on('class-created', (event, {state}) => {
-        if (state === 'success') {
-            alert('队伍创建成功！');
-            ipcRenderer.send('close-window');
-        } else {
-            alert('队伍创建失败！');
-        }
     });
 </script>
 </body>
