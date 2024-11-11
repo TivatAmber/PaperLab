@@ -20,8 +20,9 @@
 </div>
 
 <script>
+
     const UserManager = require('../../src/renderer/userManager.js');
-    const { ipcRenderer } = require('electron');
+    const { ipcRenderer} = require('electron');
     const cancel = document.getElementById('cancel');
     const form = document.getElementById('joinClassForm');
 
@@ -31,6 +32,7 @@
         const result = await UserManager.joinClass(ClassCode);
         alert(result['message']);
         if (result['success']) ipcRenderer.send('close-window');
+        ipcRenderer.send('update')
     })
     cancel.addEventListener('click', () => {
         ipcRenderer.send('close-window');

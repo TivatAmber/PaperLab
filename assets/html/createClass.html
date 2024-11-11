@@ -23,7 +23,7 @@
     </form>
 </div>
 <script>
-    const { ipcRenderer } = require('electron');
+    const { ipcRenderer} = require('electron');
     const UserManager = require('../../src/renderer/userManager.js');
     const cancel = document.getElementById('cancel');
     const form = document.getElementById('createClassForm');
@@ -35,6 +35,7 @@
         const result = await UserManager.createClass(className, classDescription);
         alert(result['message'] + "\n" + "join key:" + result['join_key']);
         if (result['success']) ipcRenderer.send('close-window');
+        ipcRenderer.send('update');
     });
 
     cancel.addEventListener('click', () => {

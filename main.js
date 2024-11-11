@@ -36,3 +36,8 @@ class Application {
 
 const electronApp = new Application();
 electronApp.init();
+
+ipcMain.on('update', () => {
+    console.log('update');
+    electronApp.windowManager.mainWindow.reload();
+});

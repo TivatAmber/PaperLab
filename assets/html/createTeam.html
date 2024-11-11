@@ -33,7 +33,6 @@
 </div>
 <script>
     const UserManager = require('../../src/renderer/userManager.js');
-    const MyTeamManager = require('../../src/renderer/myTeamManager.js');
     const { ipcRenderer } = require('electron');
     const ClassManager = require('../../src/renderer/classManager');
     const cancel = document.getElementById('cancel');
@@ -53,6 +52,7 @@
         const result = await UserManager.createTeam(teamClass, teamName, teamDescription);
         alert(result['message']);
         if (result['success']) ipcRenderer.send('close-window');
+        ipcRenderer.send('update');
     })
     cancel.addEventListener('click', () => {
         ipcRenderer.send('close-window');

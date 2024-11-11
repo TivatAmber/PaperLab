@@ -15,7 +15,7 @@ class MyTeamManager {
         const title = item['group_name'];
         const classTitle = item['class_name'];
         const description = item['description'];
-        const teamId = item['id'];
+        const teamId = item['group_id'];
 
         scrollItem.innerHTML = `
             <h3 class=competition-item-title> ${title} </h3>

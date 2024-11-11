@@ -55,4 +55,9 @@ class WindowManager {
     }
 }
 
-module.exports = WindowManager;
+// Export for browser environment
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = WindowManager;
+} else {
+    window.AssignmentManager = WindowManager;
+}

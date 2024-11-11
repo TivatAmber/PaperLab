@@ -15,9 +15,10 @@ class MyTeamManager {
         const title = item['name'];
         const description = item['join_key'];
         const classId = item['id'];
+        scrollItem.setAttribute('data-class-id', classId);
 
         scrollItem.innerHTML = `
-            <h3 class=competition-item-title data-class-id="${classId}"> ${title} </h3>
+            <h3 class=competition-item-title> ${title} </h3>
             <p class="competition-item-description">
                 邀请码：${description}
             </p>
@@ -32,8 +33,9 @@ class MyTeamManager {
             const user = await UserManager.getCurrentUser();
             const classId = e.target.parentElement.getAttribute('data-class-id');
             const response = await UserHttpHandler.sentPostRequest('delete_class_with_groups', {user_id: user['user_id'], class_id: classId});
-            if (response['status'] === 'success') {
-                await this.update();
+            if (response['success']) {
+                await MyTeamManager.update();
+                alert(response['message']);
             }
         });
         scrollItem.appendChild(deleteButton);
