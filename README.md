@@ -1,2 +1,1 @@
-# PaperLab
-A Software to manage paper…… and so on……
+大作业组队系统
