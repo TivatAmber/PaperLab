@@ -2,12 +2,7 @@
 const UserManager = require('./userManager');
 const UserHttpHandler = require('../http/userHttpHandler');
 
-class AssignmentManager {
-    static init(containerId) {
-        this.container = document.getElementById(containerId);
-        this.counter = 0;
-    }
-
+class AssignmentManager extends BaseManager {
     static async getScrollItem(item) {
         const scrollItem = document.createElement('div');
         scrollItem.classList.add('scroll-item');

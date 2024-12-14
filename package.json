@@ -1,18 +1,29 @@
 {
   "name": "paperlab",
   "version": "1.0.0",
-  "description": "A Software to manage paper…… and so on……",
+  "description": "A Software to manage big homework…… and so on……",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "TivatAmber",
   "license": "ISC",
   "devDependencies": {
+    "@electron-forge/cli": "^7.5.0",
+    "@electron-forge/maker-deb": "^7.5.0",
+    "@electron-forge/maker-rpm": "^7.5.0",
+    "@electron-forge/maker-squirrel": "^7.5.0",
+    "@electron-forge/maker-zip": "^7.5.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
+    "@electron-forge/plugin-fuses": "^7.5.0",
+    "@electron/fuses": "^1.8.0",
     "electron": "^32.1.2"
   },
   "dependencies": {
     "electron": "^32.1.2",
+    "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^10.0.0"
   }
 }

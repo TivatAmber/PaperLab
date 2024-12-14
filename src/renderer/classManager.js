@@ -1,11 +1,7 @@
 const UserHttpHandler = require('../http/userHttpHandler');
 const UserManager = require('./userManager');
 
-class ClassManager {
-    static init(containerId) {
-        this.container = document.getElementById(containerId);
-        this.counter = 0;
-    }
+class ClassManager extends BaseManager{
 
     static async getScrollItem(item) {
         const scrollItem = document.createElement('option');

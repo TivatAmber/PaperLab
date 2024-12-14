@@ -1,8 +1,4 @@
-class SearchManager {
-    static init(containerId) {
-        this.container = document.getElementById(containerId);
-        this.counter = 0;
-    }
+class SearchManager extends BaseManager {
     static getScrollItem() {
         this.container.replaceChildren();
         const scrollItem = document.createElement('div');

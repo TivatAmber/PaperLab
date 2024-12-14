@@ -2,11 +2,7 @@
 const UserManager = require('./userManager');
 const UserHttpHandler = require('../http/userHttpHandler');
 
-class MyTeamManager {
-    static init(containerId) {
-        this.container = document.getElementById(containerId);
-        this.counter = 0;
-    }
+class MyTeamManager extends BaseManager {
 
     static async getScrollItem(item) {
         const scrollItem = document.createElement('div');

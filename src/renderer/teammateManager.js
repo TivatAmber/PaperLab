@@ -1,7 +1,7 @@
 const UserHttpHandler = require("../http/userHttpHandler");
 const UserManager = require("./userManager");
 
-class TeammateManager {
+class TeammateManager extends BaseManager {
     static init(containerId) {
         this.container = document.getElementById(containerId);
         this.leaderId = null;
